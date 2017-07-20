@@ -1,0 +1,52 @@
+
+subprojects {
+	
+		
+    apply plugin: 'java'
+	
+
+	compileJava {
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
+		//options.debug(debugLevel : 'source,lines,vars')
+		options.warnings = false
+		options.deprecation = false
+		options.compilerArgs += ["-XDignore.symbol.file", "-Xdoclint:none", "-Xlint:none", "-nowarn", "-proc:none"]
+		options.fork = true
+		options.forkOptions.executable = 'javac'
+		options.encoding = 'ISO-8859-1'
+	}
+
+	// By default, disable unit tests. Re-enable in your sub-project if desired.
+	test {
+		enabled = false
+	}
+	
+	// By default, disable Javadoc creation. Re-enable in your sub-project if desired.
+	javadoc {
+		enabled = false
+	}
+	
+	// Shared Wrapper Task
+	task wrapper(type: Wrapper) {
+		gradleVersion = '4.0.1'
+	}
+
+	repositories {
+
+		mavenCentral()
+		
+	}
+	
+	// Common dependencies: SLF4J and JUnit
+	dependencies {
+	    compile 'org.slf4j:slf4j-api:1.7.12'
+		testCompile 'junit:junit:4.8.2'
+	 	testRuntime 'junit:junit:4.8.2'
+		testRuntime 'org.hamcrest:hamcrest-core:1.1'
+	}
+
+
+}
+
+
